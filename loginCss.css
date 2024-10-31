@@ -1,0 +1,17 @@
+/* styles.css */
+
+.custom-section-bg {
+    background-color: #9A616D;
+}
+
+.custom-card-radius {
+    border-radius: 1rem;
+}
+
+.custom-image-radius {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.icon-color {
+    color: #dd873c;
+}
