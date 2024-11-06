@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager's Inventory View</title>
+  <style>
+    /* Charming Seaside Palette */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #E3F9F5; /* Light seafoam green */
+      color: #1D3805;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0E6768; /* Teal */
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .table-container {
+      margin: 0 auto;
+      width: 95%;
+      max-width: 1200px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #B3EBF2; /* Light blue */
+    }
+    th {
+      background-color: #85D1DB; /* Medium blue */
+      padding: 12px;
+      text-align: left;
+      color: #034748; /* Dark teal */
+    }
+    td {
+      padding: 10px;
+      background-color: #C9FDF2; /* Pale turquoise */
+    }
+    tr:nth-child(even) td {
+      background-color: #B6F2D1; /* Light green */
+    }
+    img {
+      width: 50px;
+      height: auto;
+      border-radius: 5px;
+    }
+    .edit-btn {
+      padding: 5px 10px;
+      background-color: #034748; /* Dark teal */
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .edit-btn:hover {
+      background-color: #0E6768; /* Teal */
+    }
+    .editable {
+      background-color: #E8F0F2; /* Editable field highlight */
+    }
+  </style>
+  <script>
+    function toggleEdit(row) {
+      const fields = row.querySelectorAll(".editable");
+      const isEditing = row.classList.toggle("editing");
+
+      fields.forEach(field => {
+        if (isEditing) {
+          field.contentEditable = "true";
+          field.style.backgroundColor = "#E8F0F2";
+        } else {
+          field.contentEditable = "false";
+          field.style.backgroundColor = "";
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <h1>Manager's Inventory Control</h1>
+
+  <!-- Product List Table for Manager -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Good Type</th>
+          <th>Specific Good Name</th>
+          <th>Quantity per Unit</th>
+          <th>Total Quantity Available</th>
+          <th>Price per Unit (BDT)</th>
+          <th>Harvest Date</th>
+          <th>Shelf Life</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Mangoes -->
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1CPmkWqdFHTBln61nQEPa9Y6F89X7IxRh/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Gopalbhog Mango</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">150 kg</td>
+          <td class="editable">৳200</td>
+          <td class="editable">2024-10-01</td>
+          <td class="editable">4 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1CMu4PI-Jvn8se00FnnZoyak1x52gsou5/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Langra Mango</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">120 kg</td>
+          <td class="editable">৳220</td>
+          <td class="editable">2024-10-02</td>
+          <td class="editable">4 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1Rp1LaBCI_khYRAVkFjwN4HeGDVVHcHDt/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Fazli Mango</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">100 kg</td>
+          <td class="editable">৳230</td>
+          <td class="editable">2024-10-03</td>
+          <td class="editable">5 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Amrapali_mangoes.jpg" alt="Amrapali Mango"></td>
+          <td>Fruit</td>
+          <td>Amrapali Mango</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">80 kg</td>
+          <td class="editable">৳240</td>
+          <td class="editable">2024-10-04</td>
+          <td class="editable">4 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+                        <!-- Dairy -->
+        <tr>
+          <td><img src="https://example.com/image3.jpg" alt="Cow Milk"></td>
+          <td>Dairy</td>
+          <td>Cow Milk</td>
+          <td class="editable">1 L</td>
+          <td class="editable">500 L</td>
+          <td class="editable">৳120</td>
+          <td class="editable">2024-10-05</td>
+          <td class="editable">2 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+
+        <!-- Meat -->
+        <tr>
+          <td><img src="https://example.com/image4.jpg" alt="Chicken Breast"></td>
+          <td>Meat</td>
+          <td>Chicken Breast</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">200 kg</td>
+          <td class="editable">৳500</td>
+          <td class="editable">2024-10-07</td>
+          <td class="editable">1 week</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+
+        <!-- Additional sample products -->
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Cauliflower.JPG" alt="BARI Fulkopi-1 (RUPA)"></td>
+          <td>Vegetable</td>
+          <td>BARI Fulkopi-1 (RUPA)</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">100 kg</td>
+          <td class="editable">৳150</td>
+          <td class="editable">2024-10-01</td>
+          <td class="editable">3 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Potato.jpg" alt="Alouette Potato"></td>
+          <td>Vegetable</td>
+          <td>Alouette Potato</td>
+          <td class="editable">1 kg</td>
+          <td class="editable">80 kg</td>
+          <td class="editable">৳140</td>
+          <td class="editable">2024-10-03</td>
+          <td class="editable">4 weeks</td>
+          <td><button class="edit-btn" onclick="toggleEdit(this.closest('tr'))">Edit</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html> 

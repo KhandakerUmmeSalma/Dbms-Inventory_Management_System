@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perishable Goods Inventory</title>
+  <style>
+    /* Charming Seaside Palette */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #E3F9F5; /* Light seafoam green */
+      color: #1D3805;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #0E6768; /* Teal */
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .table-container {
+      margin: 0 auto;
+      width: 95%;
+      max-width: 1200px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #B3EBF2; /* Light blue */
+    }
+    th {
+      background-color: #85D1DB; /* Medium blue */
+      padding: 12px;
+      text-align: left;
+      color: #034748; /* Dark teal */
+    }
+    td {
+      padding: 10px;
+      background-color: #C9FDF2; /* Pale turquoise */
+    }
+    tr:nth-child(even) td {
+      background-color: #B6F2D1; /* Light green */
+    }
+    img {
+      width: 50px;
+      height: auto;
+      border-radius: 5px;
+    }
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .cart-btn, .qty-btn {
+      padding: 5px 10px;
+      background-color: #034748; /* Dark teal */
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .cart-btn:hover, .qty-btn:hover {
+      background-color: #0E6768; /* Teal */
+    }
+    .qty-display {
+      width: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: #034748; /* Dark teal */
+    }
+  </style>
+  <script>
+    function increaseQuantity(id) {
+      let qty = document.getElementById(id);
+      qty.textContent = parseInt(qty.textContent) + 1;
+    }
+
+    function decreaseQuantity(id) {
+      let qty = document.getElementById(id);
+      if (parseInt(qty.textContent) > 0) {
+        qty.textContent = parseInt(qty.textContent) - 1;
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <h1>Product List</h1>
+
+  <!-- Product List Table -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Good Type</th>
+          <th>Specific Good Name</th>
+          <th>Quantity per Unit</th>
+          <th>Total Quantity Available</th>
+          <th>Price per Unit (BDT)</th>
+          <th>Harvest Date</th>
+          <th>Shelf Life</th>
+          <th>Add to Cart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Mangoes -->
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1CPmkWqdFHTBln61nQEPa9Y6F89X7IxRh/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Gopalbhog Mango</td>
+          <td>1 kg</td>
+          <td>150 kg</td>
+          <td>৳200</td>
+          <td>2024-10-01</td>
+          <td>4 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty1')">-1</button>
+            <span id="qty1" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty1')">+1</button>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1CMu4PI-Jvn8se00FnnZoyak1x52gsou5/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Langra Mango</td>
+          <td>1 kg</td>
+          <td>120 kg</td>
+          <td>৳220</td>
+          <td>2024-10-02</td>
+          <td>4 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty2')">-1</button>
+            <span id="qty2" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty2')">+1</button>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="https://drive.google.com/file/d/1Rp1LaBCI_khYRAVkFjwN4HeGDVVHcHDt/view?usp=drive_link.jpg"></td>
+          <td>Fruit</td>
+          <td>Fazli Mango</td>
+          <td>1 kg</td>
+          <td>100 kg</td>
+          <td>৳230</td>
+          <td>2024-10-03</td>
+          <td>5 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty3')">-1</button>
+            <span id="qty3" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty3')">+1</button>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Amrapali_mangoes.jpg" alt="Amrapali Mango"></td>
+          <td>Fruit</td>
+          <td>Amrapali Mango</td>
+          <td>1 kg</td>
+          <td>80 kg</td>
+          <td>৳240</td>
+          <td>2024-10-04</td>
+          <td>4 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty4')">-1</button>
+            <span id="qty4" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty4')">+1</button>
+          </td>
+        </tr>
+                <!-- Dairy -->
+        <tr>
+          <td><img src="https://example.com/image3.jpg" alt="Cow Milk"></td>
+          <td>Dairy</td>
+          <td>Cow Milk</td>
+          <td>1 L</td>
+          <td>500 L</td>
+          <td>৳120</td>
+          <td>2024-10-05</td>
+          <td>2 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty3')">-1</button>
+            <span id="qty3" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty3')">+1</button>
+          </td>
+        </tr>
+
+        <!-- Meat -->
+        <tr>
+          <td><img src="https://example.com/image4.jpg" alt="Chicken Breast"></td>
+          <td>Meat</td>
+          <td>Chicken Breast</td>
+          <td>1 kg</td>
+          <td>200 kg</td>
+          <td>৳500</td>
+          <td>2024-10-07</td>
+          <td>1 week</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty4')">-1</button>
+            <span id="qty4" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty4')">+1</button>
+          </td>
+        </tr>
+        <!-- Additional sample products -->
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Cauliflower.JPG" alt="BARI Fulkopi-1 (RUPA)"></td>
+          <td>Vegetable</td>
+          <td>BARI Fulkopi-1 (RUPA)</td>
+          <td>1 kg</td>
+          <td>100 kg</td>
+          <td>৳150</td>
+          <td>2024-10-01</td>
+          <td>3 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty5')">-1</button>
+            <span id="qty5" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty5')">+1</button>
+          </td>
+        </tr>
+        <tr>
+          <td><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Potato.jpg" alt="Alouette Potato"></td>
+          <td>Vegetable</td>
+          <td>Alouette Potato</td>
+          <td>1 kg</td>
+          <td>80 kg</td>
+          <td>৳140</td>
+          <td>2024-10-03</td>
+          <td>4 weeks</td>
+          <td class="cart-controls">
+            <button class="qty-btn" onclick="decreaseQuantity('qty6')">-1</button>
+            <span id="qty6" class="qty-display">0</span>
+            <button class="qty-btn" onclick="increaseQuantity('qty6')">+1</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
