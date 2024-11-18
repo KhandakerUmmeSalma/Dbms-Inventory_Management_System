@@ -1,0 +1,68 @@
+/* homeCss.css */
+
+/* Navbar Customizations */
+.custom-navbar-bg {
+    background-color: #9A616D;
+}
+
+/* Login Button */
+.login-btn {
+    color: #9A616D !important;
+    border-radius: 20px;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #dd873c;
+    color: #ffffff !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: url('assets/warehouse_hero.jpg') no-repeat center center/cover;
+    height: 70vh;
+    display: flex;
+    color: #ffffff;
+    border-radius: 1rem;
+}
+
+.hero-title {
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.hero-text {
+    font-size: 1.25rem;
+    margin-top: 20px;
+}
+
+/* Features Section */
+.features-section {
+    background-color: #F3E5E5;
+}
+
+.feature-icon {
+    color: #dd873c;
+}
+
+.feature-title {
+    margin-top: 10px;
+    color: #9A616D;
+    font-weight: bold;
+}
+
+.feature-text {
+    color: #555;
+}
+
+/* General Button Styles */
+.btn-outline-light {
+    border-color: #dd873c;
+    color: #dd873c;
+}
+
+.btn-outline-light:hover {
+    background-color: #dd873c;
+    color: white;
+}
