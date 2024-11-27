@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management - Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Inventory Management Dashboard</h1>
+  </header>
+
+  <nav class="sidebar">
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#manage-admins">Warehouse Admins</a></li>
+      <li><a href="#perishable-goods">Perishable Goods</a></li>
+      <li><a href="#reports">Reports</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <section id="overview">
+      <h2>Dashboard Overview</h2>
+      <p>Welcome to the Admin Dashboard! Manage warehouse operations and perishable goods effectively.</p>
+    </section>
+
+    <section id="manage-admins">
+      <h2>Manage Warehouse Admins</h2>
+      <form id="admin-form">
+        <label for="admin-name">Name:</label>
+        <input type="text" id="admin-name" placeholder="Enter admin name" required>
+        
+        <label for="admin-salary">Annual Salary Rate:</label>
+        <input type="number" id="admin-salary" placeholder="Enter salary rate" required>
+        
+        <button type="submit">Add Admin</button>
+      </form>
+
+      <h3>Admin List</h3>
+      <table id="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Annual Salary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Admin rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </section>
+
+    <section id="perishable-goods">
+      <h2>Manage Perishable Goods</h2>
+      <form id="goods-form">
+        <label for="goods-name">Good Name:</label>
+        <input type="text" id="goods-name" placeholder="Enter good name" required>
+        
+        <label for="goods-type">Good Type:</label>
+        <input type="text" id="goods-type" placeholder="Enter good type" required>
+        
+        <label for="goods-price">Price Per Unit:</label>
+        <input type="number" id="goods-price" placeholder="Enter price per unit" required>
+        
+        <label for="goods-production-date">Production Date:</label>
+        <input type="date" id="goods-production-date" required>
+        
+        <label for="goods-shelf-time">Shelf Time (Days):</label>
+        <input type="number" id="goods-shelf-time" required>
+        
+        <label for="goods-temperature">Temperature Threshold (°C):</label>
+        <input type="number" id="goods-temperature" required>
+        
+        <label for="goods-batch">Batch Number:</label>
+        <input type="text" id="goods-batch" placeholder="Enter batch number" required>
+        
+        <button type="submit">Add Good</button>
+      </form>
+
+      <h3>Perishable Goods List</h3>
+      <table id="goods-table">
+        <thead>
+          <tr>
+            <th>Good Name</th>
+            <th>Good Type</th>
+            <th>Price Per Unit</th>
+            <th>Production Date</th>
+            <th>Shelf Time</th>
+            <th>Temperature Threshold</th>
+            <th>Batch Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Perishable goods rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
