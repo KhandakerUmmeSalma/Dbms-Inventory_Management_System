@@ -1,84 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Responsive Registration Form | CodingLab </title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="loginSignup.css">
 </head>
+
 <body>
+    <div class="container custom-section-bg">
+        <div class="form-container custom-card-radius">
+            <h2>Create an Account</h2>
+            <form id="signupForm">
+                <input type="text" class="input-field" id="username" name="username" placeholder="Username" required>
+                <input type="email" class="input-field" id="email" name="email" placeholder="Email Address" required>
+                <input type="password" class="input-field" id="password" name="password" placeholder="Password" required>
+                <input type="password" class="input-field" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
 
+                <!-- Phone Number Field -->
+                <input type="tel" class="input-field" id="phone" name="phone" placeholder="Phone Number" required pattern="^\+?[1-9]\d{1,14}$" title="Enter a valid phone number, e.g., +1234567890">
 
+                <!-- Address Dropdown -->
+                <select class="input-field" id="address" name="address" required>
+                    <option value="" disabled selected>Select Your Address</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Borishal">Borishal</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                </select>
 
-  <div class="container">
-    <!-- Title section -->
-    <div class="title" style="width"><b><h3>Registration</b></h3></div> 
-    <div class="content">
-      <!-- Registration form -->
-      <form action="#">
-        <div class="user-details">
-          <!-- Input for Full Name -->
-          <div class="input-box">
-            <span class="details">Full Name    </span>
-            <input type="text" placeholder="Enter your name" required>
-          </div>
-          <!-- Input for Username -->
-          <div class="input-box">
-            <span class="details">Username    </span>
-            <input type="text" placeholder="Enter your username" required>
-          </div>
-          <!-- Input for Email -->
-          <div class="input-box">
-            <span class="details">Email         </span>
-            <input type="text" placeholder="Enter your email" required>
-          </div>
-          <!-- Input for Phone Number -->
-          <div class="input-box">
-            <span class="details">Phone Number </span>
-            <input type="text" placeholder="Enter your number" required>
-          </div>
-          <!-- Input for Password -->
-          <div class="input-box">
-            <span class="details">Password</span>
-            <input type="text" placeholder="Enter your password" required>
-          </div>
-          <!-- Input for Confirm Password -->
-          <div class="input-box">
-            <span class="details">Confirm Password</span>
-            <input type="text" placeholder="Confirm your password" required>
-          </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+            <button class="back-btn" onclick="goToLogin()">Back to Login</button>
         </div>
-        <div class="gender-details">
-          <!-- Radio buttons for gender selection -->
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
-          <span class="gender-title">Customer type</span>
-          <div class="category">
-            <!-- Label for Retailer -->
-            <label for="dot-1">
-              <span class="dot one"></span>
-              <span class="gender">Retailer</span>
-            </label>
-            <!-- Label for Wholesaler-->
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span class="gender">Wholesaler</span>
-            </label>
-             <!-- Label for general-->
-            <label for="dot-3">
-              <span class="dot  three"></span>
-              <span class="gender">General</span>
-            </label>
-            
-          </div>
-        </div>
-        <!-- Submit button -->
-        <div class="button">
-          <input type="submit" value="Register">
-        </div>
-      </form>
     </div>
-  </div>
+
+    <script>
+        // JavaScript to handle the "Back to Login" button action
+        function goToLogin() {
+            window.location.href = 'login.html'; // Replace with the actual login page URL
+        }
+
+        // Optional: Form validation for the signup
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
+
 </html>
