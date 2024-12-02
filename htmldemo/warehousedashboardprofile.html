@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Dashboard Table - Bangladesh</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Dashboard container styling */
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .dashboard-container {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h2>Warehouse Dashboard - Dhaka</h2>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Warehouse ID</td>
+                <td>WH-DHK-001</td>
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td>Tejgaon, Dhaka, Bangladesh</td>
+            </tr>
+            <tr>
+                <td>Total Capacity</td>
+                <td>3000 metric tons (Currently 2000 metric tons)</td>
+            </tr>
+            <tr>
+                <td>Inspection Date</td>
+                <td contenteditable="true">2024-11-10</td>
+            </tr>
+            <tr>
+                <td>Follow-up Date</td>
+                <td contenteditable="true">2024-12-10</td>
+            </tr>
+            <tr>
+                <td>Alerts/Warnings</td>
+                <td>Power backup maintenance due</td>
+            </tr>
+        </table>
+
+        <h3>Staff Information</h3>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Manager</td>
+                <td>Rafiq Ahmed</td>
+            </tr>
+            <tr>
+                <td>Assistant</td>
+                <td>Shirin Akter</td>
+            </tr>
+            <tr>
+                <td>Technician</td>
+                <td>Saiful Islam</td>
+            </tr>
+        </table>
+
+        <h3>Freezer Storage Units</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Current Temperature</th>
+                <th>Humidity</th>
+                <th>Capacity</th>
+                <th>Items Stored</th>
+                <th>Temperature Control</th>
+                <th>Batch No</th>
+                <th>Good Type</th>
+                <th>Batch Amount</th>
+            </tr>
+            <tr>
+                <td>FZ-001</td>
+                <td contenteditable="true">2°C</td>
+                <td contenteditable="true">65%</td>
+                <td>1500 metric tons (Occupied: 1200)</td>
+                <td>Frozen meats, dairy products</td>
+                <td>2°C - 5°C</td>
+                <td contenteditable="true">B001</td>
+                <td>Perishable</td>
+                <td contenteditable="true">500 kg</td>
+            </tr>
+        </table>
+
+        <h3>Dry Storage Units</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Current Temperature</th>
+                <th>Humidity</th>
+                <th>Capacity</th>
+                <th>Items Stored</th>
+                <th>Temperature Control</th>
+                <th>Batch No</th>
+                <th>Good Type</th>
+                <th>Batch Amount</th>
+            </tr>
+            <tr>
+                <td>DR-001</td>
+                <td contenteditable="true">18°C</td>
+                <td contenteditable="true">45%</td>
+                <td>1500 metric tons (Occupied: 800)</td>
+                <td>Cereals, dry spices</td>
+                <td>15°C - 20°C</td>
+                <td contenteditable="true">B010</td>
+                <td>Dry</td>
+                <td contenteditable="true">200 kg</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
