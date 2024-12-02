@@ -1,18 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// Include the database connection file
+include('db.php');
 
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get form data
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+
+    // Validate passwords
+    if ($password !== $confirmPassword) {
+        echo "Passwords do not match!";
+        exit();
+    }
+
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Prepare SQL query to insert user data
+    $sql = "INSERT INTO users (username, email, password, phone, address) 
+            VALUES ('$username', '$email', '$hashedPassword', '$phone', '$address')";
+
+    // Execute the query
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+<!-- HTML Form for Signup -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
     <link rel="stylesheet" href="loginSignup.css">
 </head>
-
 <body>
     <div class="container custom-section-bg">
         <div class="form-container custom-card-radius">
             <h2>Create an Account</h2>
-            <form id="signupForm">
+            <form method="POST" action="signup.php" id="signupForm">
                 <input type="text" class="input-field" id="username" name="username" placeholder="Username" required>
                 <input type="email" class="input-field" id="email" name="email" placeholder="Email Address" required>
                 <input type="password" class="input-field" id="password" name="password" placeholder="Password" required>
@@ -41,7 +78,7 @@
     <script>
         // JavaScript to handle the "Back to Login" button action
         function goToLogin() {
-            window.location.href = 'login.html'; // Replace with the actual login page URL
+            window.location.href = 'login.html'; // Replace with your login page URL
         }
 
         // Optional: Form validation for the signup
@@ -51,10 +88,9 @@
 
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
-                event.preventDefault();
+                event.preventDefault(); // Prevent form submission if passwords don't match
             }
         });
     </script>
 </body>
-
 </html>

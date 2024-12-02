@@ -1,3 +1,51 @@
+<?php
+// Start the session for keeping the user logged in
+session_start();
+
+// Include the database connection
+include('db.php');
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepare the SQL query to check if the email exists in the database
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+
+    // Execute the query
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // User exists, fetch the user data
+        $user = $result->fetch_assoc();
+
+        // Verify the password
+        if (password_verify($password, $user['password'])) {
+            // Password is correct, start a session for the user
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['logged_in'] = true;
+
+            // Redirect to a logged-in page (e.g., dashboard.php)
+            header("Location: dashboard.php");
+            exit();
+        } else {
+            // Incorrect password
+            $error_message = "Invalid password!";
+        }
+    } else {
+        // User not found
+        $error_message = "No user found with that email!";
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,6 +104,9 @@
                                         <div class="pt-1 mb-4">
                                             <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Login</button>
                                         </div>
+
+                                        <!-- Show error message if there is one -->
+                                        <?php if (isset($error_message)) { echo "<p class='text-danger'>$error_message</p>"; } ?>
 
                                         <!-- Forgot Password and Register Links -->
                                         <div class="d-flex justify-content-between">
