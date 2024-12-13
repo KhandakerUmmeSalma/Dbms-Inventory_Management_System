@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Profile</title>
+    <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-image">
+                    <img src="profile-pic.jpg" alt="Manager Profile Picture">
+                </div>
+                <div class="profile-details">
+                    <h1>AB De Villiers</h1>
+                    <h2>Manager</h2>
+                    <p>Email: manager@example.com</p>
+                    <p>Phone: +8801559019621</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <button onclick="navigateTo('managerActivity.html')">Activity</button>
+                <button onclick="navigateTo('managerReport.html')">Report</button>
+            </div>
+        </div>
+
+        <!-- Manager Checklist -->
+        <div class="checklist-section">
+            <h2>Manager Check List</h2>
+            <ul>
+                <li><strong>Warehouse Capacity Left:</strong> 1200 kg</li>
+                <li><strong>New Batch Loaded:</strong> 4</li>
+                <li><strong>Goods Left the Warehouse (per day):</strong> 500 kg</li>
+            </ul>
+        </div>
+    </div>
+    <script src="manager.js"></script>
+</body>
+</html>
+
+
