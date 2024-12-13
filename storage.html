@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Unit Staff Profile</title>
+    <link rel="stylesheet" href="storage.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+            <h1>Storage Unit Staff</h1>
+            <p>Email: staff@example.com</p>
+            <p>Phone: +8801559019622</p>
+        </div>
+        <div class="buttons">
+            <button onclick="navigateTo('UpAct.html')">Activity</button>
+            <button onclick="navigateTo('storageReport.html')">Report</button>
+        </div>
+        <div class="profile-details">
+            <h2>Storage Check List</h2>
+            <p>Freezer Capacity Left: 800 kg</p>
+            <p>Dry Storage Capacity Left: 600 kg</p>
+            <p>Goods Loaded Today: 3 (Freezer), 2 (Dry)</p>
+            <p>Wastage: 20 kg (Freezer), 10 kg (Dry)</p>
+            <p>Temperature: -18°C (Freezer), 25°C (Dry)</p>
+            <p>Humidity: 65% (Freezer), 50% (Dry)</p>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
+
+   
