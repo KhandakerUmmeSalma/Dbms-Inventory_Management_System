@@ -66,9 +66,12 @@
   </div>
 
   <script>
+    // Constants for promo code and wholesale discounts
     const validPromoCode = "SAVE20";
     const promoDiscount = 0.2; // 20% promo discount
     const maxWholesaleDiscount = 0.3; // Maximum wholesale discount of 30%
+
+    // Retrieve cart data or initialize an empty cart
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function calculateWholesaleDiscount(totalQuantity) {
@@ -111,11 +114,13 @@
           <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
         `;
 
+        // Update quantity event
         itemRow.querySelector('input').addEventListener('change', function (e) {
           item.quantity = parseInt(e.target.value);
           updateCart();
         });
 
+        // Remove item event
         itemRow.querySelector('button').addEventListener('click', function () {
           cart.splice(index, 1);
           updateCart();
@@ -137,6 +142,7 @@
       document.getElementById('checkoutButton').disabled = false;
       localStorage.setItem('cart', JSON.stringify(cart));
 
+      // Disable promo code for wholesalers
       if (totalQuantity > 100) {
         document.getElementById('promoCode').disabled = true;
         document.getElementById('applyPromoButton').disabled = true;
@@ -192,9 +198,9 @@
 
       window.location.href = 'orderConfirmation.html';
     });
+    
 
     updateCartDisplay();
   </script>
 </body>
 </html>
-
