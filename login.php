@@ -1,49 +1,48 @@
 <?php
-// Start the session for keeping the user logged in
 session_start();
+include 'database.php';
 
-// Include the database connection
-include('db.php');
-
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get form data
-    $email = $_POST['email'];
+    $userid = $_POST['userid'];
     $password = $_POST['password'];
+    $usertype = $_POST['usertype'];
 
-    // Prepare the SQL query to check if the email exists in the database
-    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $query = "SELECT * FROM login_t WHERE ID='$userid' AND Password='$password' ";
+    $result = mysqli_query($conn, $query);
 
-    // Execute the query
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // User exists, fetch the user data
-        $user = $result->fetch_assoc();
-
-        // Verify the password
-        if (password_verify($password, $user['password'])) {
-            // Password is correct, start a session for the user
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['logged_in'] = true;
-
-            // Redirect to a logged-in page (e.g., dashboard.php)
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            // Incorrect password
-            $error_message = "Invalid password!";
+    if (mysqli_num_rows($result) == 1) {
+        $_SESSION['userid'] = $userid;
+        switch ($usertype) {
+            case 'farmer':
+                header("Location: farmer.php");
+                break;
+            case 'loan_provider':
+                header("Location: loanProvider.php");
+                break;
+            case 'insurance_provider':
+                header("Location:insuranceProvider.php");
+                break;
+            case 'investment_provider':
+                header("Location: investor.php");
+                break;
+            case 'grant_provider':
+                header("Location: grantProvider.php");
+                break;
+            case 'admin':
+                header("Location:Admin_E/admin_dashboard.php");
+                break;
+            case 'advisor':
+                header('Location:advisor.php');
+                break;
+            default:
+                echo "Invalid user type";
+                break;
         }
     } else {
-        // User not found
-        $error_message = "No user found with that email!";
+        echo "Invalid credentials";
     }
+    mysqli_close($conn);
 }
-
-// Close the database connection
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -53,13 +52,9 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <!-- MDB CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="loginCss.css">
 </head>
 
@@ -74,51 +69,58 @@ $conn->close();
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
                                 <img src="assets/shopping_bag.jpg" alt="login form" class="img-fluid custom-image-radius" />
                             </div>
-
-                            <!-- Right Form Section -->
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
-                                    <form method="POST" action="login.php">
-                                        <!-- Brand Logo and Title -->
+
+                                    <form method="POST">
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <i class="fa-solid fa-warehouse fa-2x me-3 icon-color"></i>
                                             <span class="h1 fw-bold mb-0">FreshPick</span>
                                         </div>
 
-                                        <!-- Form Title -->
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
-                                        <!-- Email Input -->
-                                        <div class="form-outline mb-4">
-                                            <input type="email" id="form2Example17" class="form-control form-control-lg custom-input" name="email" required />
-                                            <label class="form-label" for="form2Example17">Email address</label>
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <input type="text" id="form2Example17" name="userid" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="form2Example17">User ID</label>
                                         </div>
 
-                                        <!-- Password Input -->
-                                        <div class="form-outline mb-4">
-                                            <input type="password" id="form2Example27" class="form-control form-control-lg custom-input" name="password" required />
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <input type="password" id="form2Example27" name="password" class="form-control form-control-lg" required />
                                             <label class="form-label" for="form2Example27">Password</label>
                                         </div>
 
+                                        <!-- User Type Selection -->
+                                        <div class="form-outline mb-4">
+                                             <label class="form-label" for="usertype">User Type</label>
+                                            <select name="usertype" class="form-select form-select-lg">
+                                                <option value="farmer">Manager</option>
+                                                <option value="customer">Customer</option>
+                                                <option value="food_safety_officer">Food Safety Officer</option>
+                                                <option value="Delivert_person">Delivery-person</option>
+                                                <option value="Storage_unit_staff">Storage unit staff</option>
+                                                <option value="producer">Producer</option>
+                                                
+                                            
+                                            <optgroup label="Customer">
+                                                     <option value="customer_type_1">General</option>
+                                                     <option value="customer_type_2">Retailer</option>
+                                                     <option value="customer_type_3">Wholesaler</option>
+                                                 </optgroup>
+                                                 </select>
+                                            
+                                        </div>
+
+
                                         <!-- Login Button -->
                                         <div class="pt-1 mb-4">
-                                            <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Login</button>
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>
 
-                                        <!-- Show error message if there is one -->
-                                        <?php if (isset($error_message)) { echo "<p class='text-danger'>$error_message</p>"; } ?>
-
-                                        <!-- Forgot Password and Register Links -->
-                                        <div class="d-flex justify-content-between">
-                                            <a class="small text-muted" href="#!">Forgot password?</a>
-                                            <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="signup.php" style="color: #393f81;">Register here</a></p>
-                                        </div>
-
-                                        <!-- Footer Links -->
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#!" class="small text-muted">Terms of use</a>
-                                            <a href="#!" class="small text-muted">Privacy policy</a>
-                                        </div>
+                                        <a class="small text-muted" href="#!">Forgot password?</a>
+                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
+                                        <a href="#!" class="small text-muted">Terms of use.</a>
+                                        <a href="#!" class="small text-muted">Privacy policy</a>
                                     </form>
                                 </div>
                             </div>
