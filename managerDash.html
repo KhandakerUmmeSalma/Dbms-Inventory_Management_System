@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    /* Sidebar Panel */
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-color: #343a40;
+      color: white;
+      padding-top: 20px;
+    }
+
+    .sidebar h4 {
+      text-align: center;
+      margin: 0;
+      padding: 10px 0;
+      background-color: #343a40;
+      color: white;
+      font-size: 20px;
+    }
+
+    .sidebar a {
+      padding: 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .sidebar a:hover {
+      background-color: #495057;
+      font-size: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding-left: 10px;
+    }
+
+    .sidebar ul li a {
+      padding: 10px;
+      display: block;
+      color: #f8f9fa;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    /* Header Green Bar */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 250px;
+      width: calc(100% - 250px);
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    /* Notification Icon */
+    .notification-icon {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background-color: white;
+      color: #28a745;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Notification Box */
+    .notification-box {
+      position: absolute;
+      top: 55px;
+      right: 20px;
+      width: 250px;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 1000;
+    }
+
+    .notification-box ul {
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .notification-box ul li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .notification-box ul li:last-child {
+      border-bottom: none;
+    }
+
+    .notification-box ul li:hover {
+      background-color: #f8f9fa;
+      cursor: pointer;
+    }
+
+    /* Main Content Section */
+    .content {
+      margin-left: 250px;
+      margin-top: 70px;
+      padding: 20px;
+      width: calc(100% - 250px);
+    }
+
+    /* Section Display Control */
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 10px;
+    }
+
+    th {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .date-range-1 { background-color: #f8d7da; } /* Days 1-7 */
+    .date-range-2 { background-color: #d4edda; } /* Days 8-14 */
+    .date-range-3 { background-color: #d1ecf1; } /* Days 15-21 */
+    .date-range-4 { background-color: #fff3cd; } /* Days 22-31 */
+
+    canvas {
+      max-width: 600px;
+      margin: 20px auto;
+
+    .chart {
+    width: 80%;
+    margin: 20px auto;
+
+        }  
+    }
+  </style>
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Manager Dashboard</h2>
+        <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+        <a href="#" onclick="showSection('perishable')">Perishable Goods</a>
+        <a href="#" onclick="showSection('employee')">Employee Information</a>
+        <a href="#" onclick="showSection('warehouses')">Warehouses</a>        
+        <a href="#" onclick="toggleSubMenu('reports')">Reports</a>
+        <div id="reports" class="submenu">
+            <a href="#" onclick="showSection('food-safety')">Food Safety Officer's Report</a>
+            <a href="#" onclick="showSection('batches')">Loaded Batches (Monthly)</a>
+            <a href="#" onclick="showSection('wastage')">Monthly Wastage</a>
+        </div>
+        <a href="#">Log Out</a>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div id="dashboard">
+            <h1>Welcome to Manager Dashboard</h1>
+        </div>
+
+        <div id="food-safety" style="display:none;">
+            <h2>Food Safety Officer's Report</h2>
+            <p>Report details go here.</p>
+        </div>
+
+        <div id="batches" style="display:none;">
+            <h2>Loaded Batches (Monthly)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Harvest Date</th>
+                        <th>Batch Entry Date</th>
+                        <th>Amount</th>
+                        <th>Producer Name</th>
+                        <th>Shelf Life</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="date-range-1">
+                        <td>001</td><td>2024-06-01</td><td>2024-06-07</td><td>50</td><td>Farmer A</td><td>10 days</td>
+                    </tr>
+                    <tr class="date-range-2">
+                        <td>002</td><td>2024-06-08</td><td>2024-06-014</td><td>60</td><td>Farmer B</td><td>12 days</td>
+                    </tr>
+                    <tr class="date-range-3">
+                        <td>001</td><td>2024-06-15</td><td>2024-06-21</td><td>50</td><td>Farmer A</td><td>10 days</td>
+                    </tr>
+                    <tr class="date-range-4">
+                        <td>002</td><td>2024-06-22</td><td>2024-06-28</td><td>60</td><td>Farmer B</td><td>12 days</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div id="wastage" style="display:none;">
+            <h2>Monthly Wastage</h2>
+            <!-- Pie Chart for Total Monthly Perishable Goods Wastage -->
+            <div class="chart" id="pie_chart"></div>
+            <!-- Combo Chart for Warehouse Wastage -->
+            <div class="chart" id="combo_chart"></div>
+
+            <!-- Scripts -->
+            <script>
+                google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+
+                // Redraw charts only when section is shown
+                function drawCharts() {
+                    drawPieChart();
+                    drawComboChart();
+                }
+
+                // Draws the 3D Pie Chart
+                function drawPieChart() {
+                    var pieData = google.visualization.arrayToDataTable([
+                        ['Category', 'Amount'],
+                        ['Fruits', 40],
+                        ['Vegetables', 35],
+                        ['Dairy', 25]
+                    ]);
+
+                    var pieOptions = {
+                        title: 'Wastage by Category',
+                        is3D: true,
+                        colors: ['#f87979', '#56b4f8', '#ffd966']
+                    };
+
+                    var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+                    pieChart.draw(pieData, pieOptions);
+                }
+
+                // Draws the Combo Chart
+                function drawComboChart() {
+                    var comboData = google.visualization.arrayToDataTable([
+                        ['Warehouse', 'Region A', 'Region B', 'Region C'],
+                        ['Dhaka', 100, 200, 150],
+                        ['Chittagong', 80, 90, 70],
+                        ['Sylhet', 60, 50, 40],
+                        ['Rajshahi', 120, 210, 160]
+                    ]);
+
+                    var comboOptions = {
+                        title: 'Monthly Wastage by Warehouse and Region',
+                        vAxis: { title: 'Wastage' },
+                        hAxis: { title: 'Warehouse' },
+                        seriesType: 'bars',
+                        series: { 3: { type: 'line' } }
+                    };
+
+                    var comboChart = new google.visualization.ComboChart(document.getElementById('combo_chart'));
+                    comboChart.draw(comboData, comboOptions);
+                }
+
+                // Show specific sections and redraw charts when "wastage" is shown
+                function showSection(id) {
+                    document.querySelectorAll('.content > div').forEach(div => div.style.display = 'none');
+                    const targetSection = document.getElementById(id);
+                    targetSection.style.display = 'block';
+
+                    if (id === 'wastage') {
+                        drawCharts(); // Redraw charts only for wastage section
+                    }
+                }
+            </script>
+        </div>
+
+
+</body>
+</html>
