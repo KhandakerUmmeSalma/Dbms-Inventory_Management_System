@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,23 @@
   <script src="https://kit.fontawesome.com/a028686634.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
+
 <body>
   <button class="btn btn-primary" onclick="window.location.href='checkout.html';">
-  Go to Checkout
-</button>
+    Go to Checkout
+  </button>
 
 
   <!-- Navbar with Cart Button -->
   <nav class="navbar fixed-top" style="background-color: #B6F2D1;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Customer Dashboard</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+        aria-controls="offcanvasMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+      <div class="offcanvas offcanvas-end custom-offcanvas" tabindex="-1" id="offcanvasMenu"
+        aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasMenuLabel">Navigation</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -29,7 +33,8 @@
           <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="productDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Product Types
               </a>
               <ul class="dropdown-menu" aria-labelledby="productDropdown">
@@ -55,53 +60,53 @@
   <div class="container mt-5 pt-5">
     <div class="row">
       <!-- Vegetable Item 1 -->
-    <div class="col-md-4">
-  <div class="card" style="width: 16rem; height: 400px;">
-    <img src="milk.jpg" class="card-img-top" alt="Milk" style="object-fit: cover; height: 200px;">
-    <div class="card-body">
-      <h5 class="card-title"><b>Milk</b></h5>
-      <p class="card-text">Fresh Milk from the farm.</p>
-      <button class="btn btn-success add-to-cart" data-product="Milk" data-price="10">Add to Cart</button>
-      <div class="d-flex mt-3">
-        <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
+      <div class="col-md-4">
+        <div class="card" style="width: 16rem; height: 400px;">
+          <img src="milk.jpg" class="card-img-top" alt="Milk" style="object-fit: cover; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Milk</b></h5>
+            <p class="card-text">Fresh Milk from the farm.</p>
+            <button class="btn btn-success add-to-cart" data-product="Milk" data-price="10">Add to Cart</button>
+            <div class="d-flex mt-3">
+              <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Cheese Item -->
+      <div class="col-md-4">
+        <div class="card" style="width: 16rem; height: 400px;">
+          <img src="cheese.jpg" class="card-img-top" alt="Cheese" style="object-fit: cover; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Cheese</b></h5>
+            <p class="card-text">Fresh Cheese from the farm.</p>
+            <button class="btn btn-success add-to-cart" data-product="Cheese" data-price="20/kg">Add to Cart</button>
+            <div class="d-flex mt-3">
+              <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Egg Item -->
+      <div class="col-md-4">
+        <div class="card" style="width: 16rem; height: 400px;">
+          <img src="egg.jpg" class="card-img-top" alt="Egg" style="object-fit: cover; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title"><b>Egg</b></h5>
+            <p class="card-text">Fresh Egg from the farm.</p>
+            <button class="btn btn-success add-to-cart" data-product="Egg" data-price="32/kg">Add to Cart</button>
+            <div class="d-flex mt-3">
+              <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
-</div>
-
-<!-- Cheese Item -->
-<div class="col-md-4">
-  <div class="card" style="width: 16rem; height: 400px;">
-    <img src="cheese.jpg" class="card-img-top" alt="Cheese" style="object-fit: cover; height: 200px;">
-    <div class="card-body">
-      <h5 class="card-title"><b>Cheese</b></h5>
-      <p class="card-text">Fresh Cheese from the farm.</p>
-      <button class="btn btn-success add-to-cart" data-product="Cheese" data-price="20/kg">Add to Cart</button>
-      <div class="d-flex mt-3">
-        <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Egg Item -->
-<div class="col-md-4">
-  <div class="card" style="width: 16rem; height: 400px;">
-    <img src="egg.jpg" class="card-img-top" alt="Egg" style="object-fit: cover; height: 200px;">
-    <div class="card-body">
-      <h5 class="card-title"><b>Egg</b></h5>
-      <p class="card-text">Fresh Egg from the farm.</p>
-      <button class="btn btn-success add-to-cart" data-product="Egg" data-price="32/kg">Add to Cart</button>
-      <div class="d-flex mt-3">
-        <input type="number" class="form-control mx-2 quantity-input" value="0" style="width: 50px;" min="0">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-      </div>
-    </div>
   </div>
 
   <script>
@@ -123,7 +128,7 @@
 
     // Handle Add to Cart functionality
     document.querySelectorAll('.add-to-cart').forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function () {
         const product = this.getAttribute('data-product');
         const price = parseFloat(this.getAttribute('data-price'));
 
@@ -150,7 +155,7 @@
     });
 
     // Redirect to the cart page
-    document.getElementById('cartButton').addEventListener('click', function() {
+    document.getElementById('cartButton').addEventListener('click', function () {
       window.location.href = 'cart.html';  // Redirect to the cart page
     });
 
@@ -160,4 +165,5 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
