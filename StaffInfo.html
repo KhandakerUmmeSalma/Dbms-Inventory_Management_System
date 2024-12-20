@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Information - Warehouse Dashboard</title>
+    <title>Employee Information - Warehouse Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,41 +11,57 @@
             color: #333;
             margin: 0;
             padding: 20px;
+            overflow-x: hidden;
         }
-
         .dashboard-container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
         }
-
         h2, h3 {
             text-align: center;
             color: #333;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-
         th, td {
             padding: 12px;
             text-align: left;
             border: 1px solid #ddd;
         }
-
         th {
             background-color: #4CAF50;
             color: white;
         }
-
         tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+        .edit-salary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .edit-salary input {
+            padding: 5px;
+            width: 80px;
+        }
+        .edit-salary button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .edit-salary button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -59,11 +75,26 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Position</th>
+                <th>Number</th>
+                <th>Email</th>
+                <th>Joining Date</th>
+                <th>Departure Date</th>
+                <th>Salary</th>
+                <th>Edit Salary</th>
             </tr>
             <tr>
-                <td>0000009</td>
+                <td>0000003</td>
                 <td>Rafiq Ahmed</td>
                 <td>Warehouse Manager</td>
+                <td>+880123456789</td>
+                <td>rafiq.ahmed@example.com</td>
+                <td>2020-01-15</td>
+                <td>---</td>
+                <td>50000</td>
+                <td class="edit-salary">
+                    <input type="number" placeholder="New Salary">
+                    <button>Update</button>
+                </td>
             </tr>
         </table>
 
@@ -73,11 +104,26 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Position</th>
+                <th>Number</th>
+                <th>Email</th>
+                <th>Joining Date</th>
+                <th>Departure Date</th>
+                <th>Salary</th>
+                <th>Edit Salary</th>
             </tr>
             <tr>
                 <td>0000002</td>
                 <td>Shirin Akter</td>
                 <td>Delivery Coordinator</td>
+                <td>+880987654321</td>
+                <td>shirin.akter@example.com</td>
+                <td>2021-05-10</td>
+                <td>---</td>
+                <td>30000</td>
+                <td class="edit-salary">
+                    <input type="number" placeholder="New Salary">
+                    <button>Update</button>
+                </td>
             </tr>
         </table>
 
@@ -86,31 +132,70 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Position</th>
+                <th>Role</th>
+                <th>Number</th>
+                <th>Email</th>
+                <th>Joining Date</th>
+                <th>Departure Date</th>
+                <th>Salary</th>
+                <th>Edit Salary</th>
             </tr>
             <tr>
                 <td>0000001</td>
                 <td>Saiful Islam</td>
                 <td>Producer Technician</td>
+                <td>+8801122334455</td>
+                <td>saiful.islam@example.com</td>
+                <td>2022-03-20</td>
+                <td>---</td>
+                <td>35000</td>
+                <td class="edit-salary">
+                    <input type="number" placeholder="New Salary">
+                    <button>Update</button>
+                </td>
             </tr>
         </table>
 
-        <h3>Storage Unit Staff</h3>
+        <h3>Storage Units Staff</h3>
         <table>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Position</th>
+                <th>Storage Type</th>
+                <th>Number</th>
+                <th>Email</th>
+                <th>Joining Date</th>
+                <th>Departure Date</th>
+                <th>Salary</th>
+                <th>Edit Salary</th>
             </tr>
             <tr>
-                <td>1234567</td>
+                <td>0000004</td>
                 <td>Anwar Hossain</td>
-                <td>Storage Unit Staff</td>
+                <td>Freezer</td>
+                <td>+8809988776655</td>
+                <td>anwar.hossain@example.com</td>
+                <td>2019-07-01</td>
+                <td>---</td>
+                <td>28000</td>
+                <td class="edit-salary">
+                    <input type="number" placeholder="New Salary">
+                    <button>Update</button>
+                </td>
             </tr>
             <tr>
-                <td>1234568</td>
+                <td>0000005</td>
                 <td>Mitu Akter</td>
-                <td>Storage Unit Staff</td>
+                <td>Dry Storage</td>
+                <td>+8807766554433</td>
+                <td>mitu.akter@example.com</td>
+                <td>2023-02-15</td>
+                <td>2024-02-14</td>
+                <td>25000</td>
+                <td class="edit-salary">
+                    <input type="number" placeholder="New Salary">
+                    <button>Update</button>
+                </td>
             </tr>
         </table>
     </div>
