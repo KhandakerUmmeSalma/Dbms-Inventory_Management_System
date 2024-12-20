@@ -1,44 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Profile</title>
-    <link rel="stylesheet" href="manager.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #343a40;
+      color: white;
+      padding-top: 20px;
+    }
+
+    .sidebar a {
+      padding: 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background-color: #495057;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .dashboard-header {
+      background-color: #28a745;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .dashboard-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-section h5 {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Profile Section -->
-        <div class="profile-section">
-            <div class="profile-header">
-                <div class="profile-image">
-                    <img src="profile-pic.jpg" alt="Manager Profile Picture">
-                </div>
-                <div class="profile-details">
-                    <h1>AB De Villiers</h1>
-                    <h2>Manager</h2>
-                    <p>Email: manager@example.com</p>
-                    <p>Phone: +8801559019621</p>
-                </div>
-            </div>
-            <div class="buttons">
-                <button onclick="navigateTo('managerActivity.html')">Activity</button>
-                <button onclick="navigateTo('managerReport.html')">Report</button>
-            </div>
-        </div>
 
-        <!-- Manager Checklist -->
-        <div class="checklist-section">
-            <h2>Manager Check List</h2>
-            <ul>
-                <li><strong>Warehouse Capacity Left:</strong> 1200 kg</li>
-                <li><strong>New Batch Loaded:</strong> 4</li>
-                <li><strong>Goods Left the Warehouse (per day):</strong> 500 kg</li>
-            </ul>
-        </div>
+  <div class="sidebar">
+    <h4 class="text-center">Manager Dashboard</h4>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#perishable-goods">Perishable Goods</a>
+    <a href="#employee-info">Employee Information</a>
+    <a href="#warehouses">Warehouses</a>
+    <a href="#reports">Reports</a>
+    <ul style="list-style: none; padding-left: 15px;">
+      <li><a href="#food-safety-report">Food Safety Officer's Report</a></li>
+      <li><a href="#loaded-batches">Loaded Batches (Monthly)</a></li>
+      <li><a href="#monthly-wastage">Monthly Wastage</a></li>
+    </ul>
+    <a href="#logout">Log Out</a>
+  </div>
+
+  <div class="content">
+    <div class="dashboard-header">
+      <h2>Welcome to the Manager Dashboard</h2>
     </div>
-    <script src="manager.js"></script>
+
+    <div id="dashboard" class="dashboard-section">
+      <h5>Key Metrics</h5>
+      <p><strong>Total Perishable Goods:</strong> 1,250 items</p>
+      <p><strong>Total Employees:</strong> 45</p>
+      <p><strong>Total Warehouses:</strong> 5</p>
+      <p><strong>Monthly Wastage:</strong> 120 kg</p>
+    </div>
+
+    <div id="perishable-goods" class="dashboard-section">
+      <h5>Perishable Goods Overview</h5>
+      <p>Manage and monitor the status of perishable goods in real-time.</p>
+    </div>
+
+    <div id="employee-info" class="dashboard-section">
+      <h5>Employee Information</h5>
+      <p>View and manage employee details, roles, and performance metrics.</p>
+    </div>
+
+    <div id="warehouses" class="dashboard-section">
+      <h5>Warehouses</h5>
+      <p>Track warehouse operations and optimize inventory storage.</p>
+    </div>
+
+    <div id="reports" class="dashboard-section">
+      <h5>Reports</h5>
+      <p>Access detailed reports including food safety, loaded batches, and monthly wastage.</p>
+    </div>
+
+    <div id="logout" class="dashboard-section">
+      <h5>Log Out</h5>
+      <p>Click below to securely log out of the dashboard.</p>
+      <button class="btn btn-danger">Log Out</button>
+    </div>
+  </div>
+
 </body>
 </html>
-
-
