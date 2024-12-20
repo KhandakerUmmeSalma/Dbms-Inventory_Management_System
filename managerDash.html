@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar Panel */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #343a40;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin: 0;
+            padding: 15px 0;
+            background-color: #28a745;
+            font-size: 22px;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+            font-size: 20px;
+        }
+
+        /* Submenu */
+        .submenu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        /* Header Bar */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 250px;
+            width: calc(100% - 250px);
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+               /* Notification Icon */
+        #notification-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Notification dropdown */
+        #notifications {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 999;
+        }
+
+        #notifications ul {
+            list-style-type: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        #notifications li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #notifications li:last-child {
+            border-bottom: none;
+        }
+
+        #notifications li:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Header and table styles */
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Main Content Section */
+        .content {
+            margin-left: 250px;
+            margin-top: 70px;
+            padding: 20px;
+            width: calc(100% - 250px);
+        }
+
+        /* Section Display Control */
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-card h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #28a745;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .notification-box {
+            position: absolute;
+            top: 55px;
+            right: 20px;
+            width: 300px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .notification-box ul {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .notification-box ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .notification-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .notification-box ul li:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Manager Dashboard</h2>
+        <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+        <a href="managerPerishableGoods.html"
+            onclick="loadExternalPage('perishable', 'managerPerishableGoods.html')">Perishable Goods</a>
+        <a href="#" onclick="showSection('employee'); loadExternalPage('employee', './subdirectory/StaffInfo.html'); return false;">Employee Information</a>
+        <a href="warehouselist.html">Warehouses</a>
+        <a href="#" onclick="toggleSubMenu('reports')">Reports</a>
+        <div id="reports" class="submenu">
+            <a href="#" onclick="showSection('food-safety')">Food Safety Officer's Report</a>
+            <a href="#" onclick="showSection('batches')">Loaded Batches (Monthly)</a>
+            <a href="#" onclick="showSection('wastage')">Monthly Wastage</a>
+        </div>
+        <a href="#" onclick="logout()">Log Out</a>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        Welcome to Manager Dashboard
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="dashboard-section active">
+            <h1>Dashboard Overview</h1>
+            <div class="dashboard-grid">
+                <!-- Top-Left: Order List -->
+                <div class="dashboard-card">
+                    <h3>Order List</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>Customer A</td>
+                                <td>20kg</td>
+                                <td>Shipped</td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Customer B</td>
+                                <td>15kg</td>
+                                <td>Shipped</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="notification-icon" onclick="toggleNotifications()">🔔</div>
+
+                <!-- Notifications Dropdown -->
+                <div id="notifications">
+                    <ul>
+                        <li>Freezer ID 000001 is out of temperature range</li>
+                        <li>Dry ID 000045 is out of humidity range</li>
+                        <li>Freezer ID 000023 is out of maintenance</li>
+                    </ul>
+                </div>
+
+
+                <!-- Top-Right: New Arrival Orders -->
+                <div class="dashboard-card">
+                    <h3>New Arrival Orders</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product</th>
+                                <th>Arrival Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1001</td>
+                                <td>Apples</td>
+                                <td>2024-12-17</td>
+                                <td>Pending</td>
+                            </tr>
+                            <tr>
+                                <td>1002</td>
+                                <td>Bananas</td>
+                                <td>2024-12-18</td>
+                                <td>Pending</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bottom-Left: Manager Assign Vehicle -->
+                <div class="dashboard-card">
+                    <h3>Assign Vehicle</h3>
+                    <form>
+                        <label for="order">Select Order</label>
+                        <select id="order">
+                            <option value="1001">Order 1001</option>
+                            <option value="1002">Order 1002</option>
+                        </select>
+                        <br><br>
+                        <label for="vehicle">Select Vehicle</label>
+                        <select id="vehicle">
+                            <option value="vehicle1">Vehicle 1</option>
+                            <option value="vehicle2">Vehicle 2</option>
+                        </select>
+                        <br><br>
+                        <button type="submit">Assign Vehicle</button>
+                    </form>
+                </div>
+
+                <!-- Bottom-Right: Track Order -->
+                <div class="dashboard-card">
+                    <h3>Track Order</h3>
+                    <form>
+                        <label for="order-track">Enter Order ID</label>
+                        <input type="text" id="order-track" name="order-track">
+                        <br><br>
+                        <button type="submit">Track Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Perishable Goods Section -->
+        <div id="perishable" class="dashboard-section">
+            <h1>Perishable Goods</h1>
+            <p>Details of perishable goods go here.</p>
+        </div>
+
+        <!-- Employee Information Section -->
+        <div id="employee" style="display: none;">
+    <!-- Employee Information content will load here -->
+        </div>
+        <!-- Warehouses Section -->
+        <div id="warehouses" class="dashboard-section">
+            <h1>Warehouses</h1>
+            <p>Information regarding warehouse locations and inventory.</p>
+                    <table>
+            <tr>
+                <th>Warehouse Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+            </tr>
+            <tr>
+                <td><a href="warehouse-details.html?warehouse=WH-DHK-001">Dhaka Warehouse</a></td>
+                <td>Dhaka, Bangladesh</td>
+                <td>3000 metric tons</td>
+            </tr>
+            <tr>
+                <td><a href="warehouse-details.html?warehouse=WH-DHK-002">Chittagong Warehouse</a></td>
+                <td>Chittagong, Bangladesh</td>
+                <td>2500 metric tons</td>
+            </tr>
+            <!-- Add more warehouses as needed -->
+        </table>
+        </div>
+
+        <!-- Food Safety Officer's Report Section -->
+        <div id="food-safety" class="dashboard-section">
+            <h1>Food Safety Officer's Report</h1>
+            <p>Details about food safety and compliance.</p>
+        </div>
+
+        <!-- Loaded Batches (Monthly) Section -->
+        <div id="batches" class="dashboard-section">
+            <h1>Loaded Batches (Monthly)</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Harvest Date</th>
+                        <th>Batch Entry Date</th>
+                        <th>Amount</th>
+                        <th>Producer Name</th>
+                        <th>Shelf Life</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #ffcccc;">
+                        <td>101</td>
+                        <td>2024-12-01</td>
+                        <td>2024-12-02</td>
+                        <td>500kg</td>
+                        <td>Producer A</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr style="background-color: #ffe6cc;">
+                        <td>102</td>
+                        <td>2024-12-08</td>
+                        <td>2024-12-09</td>
+                        <td>300kg</td>
+                        <td>Producer B</td>
+                        <td>10 days</td>
+                    </tr>
+                    <tr style="background-color: #ffffcc;">
+                        <td>103</td>
+                        <td>2024-12-15</td>
+                        <td>2024-12-16</td>
+                        <td>200kg</td>
+                        <td>Producer C</td>
+                        <td>5 days</td>
+                    </tr>
+                    <tr style="background-color: #ccffcc;">
+                        <td>104</td>
+                        <td>2024-12-22</td>
+                        <td>2024-12-23</td>
+                        <td>400kg</td>
+                        <td>Producer D</td>
+                        <td>8 days</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Monthly Wastage Section -->
+        <div id="wastage" class="dashboard-section">
+            <h1>Monthly Wastage</h1>
+            <div id="wastage-piechart" style="width: 100%; height: 400px;"></div>
+            <div id="wastage-bargraph" style="width: 100%; height: 400px;"></div>
+        </div>
+
+        <script>
+            // Load the Google Charts library
+            google.charts.load('current', {
+                packages: ['corechart']
+            });
+            // Draw the pie chart for Monthly Wastage
+            google.charts.setOnLoadCallback(drawPieChart);
+
+            function drawPieChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Type', 'Quantity'],
+                    ['Total Monthly Perishable Goods', 1800],
+                    ['Total Monthly Freezer Wastage', 400],
+                    ['Total Monthly Dry Wastage', 200]
+                ]);
+                var options = {
+                    title: 'Monthly Wastage Overview',
+                    is3D: true,
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('wastage-piechart'));
+                chart.draw(data, options);
+            }
+            // Draw the bar chart for Monthly Wastage by Warehouse and Region
+            google.charts.setOnLoadCallback(drawBarGraph);
+
+            function drawBarGraph() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Warehouse/Region', 'Wastage (kg)'],
+                    ['Warehouse A', 100],
+                    ['Warehouse B', 150],
+                    ['Region X', 75],
+                    ['Region Y', 75]
+                ]);
+                var options = {
+                    title: 'Monthly Wastage by Warehouse and Region',
+                    hAxis: {
+                        title: 'Warehouse/Region'
+                    },
+                    vAxis: {
+                        title: 'Wastage (kg)'
+                    },
+                    legend: {
+                        position: 'none'
+                    }
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('wastage-bargraph'));
+                chart.draw(data, options);
+            }
+        </script>
+
+        <!-- Monthly Wastage Section -->
+        <div id="wastage" class="dashboard-section">
+            <h1>Monthly Wastage</h1>
+            <p>Information about wastage for the current month.</p>
+        </div>
+
+        <!-- Notification Box -->
+        <div class="notification-box" id="notification-box">
+            <ul>
+                <li>New order received</li>
+                <li>Shipment delayed</li>
+                <li>New arrivals added</li>
+                <li>Freezer storage temperature out of range (FreezerID: 123)</li>
+                <li>Dry storage temperature out of range (DryID: 456)</li>
+                <li>Freezer storage humidity out of range (FreezerID: 123)</li>
+                <li>Dry storage humidity out of range (DryID: 456)</li>
+                <li>Vehicle storage temperature out of range (VehicleID: 789)</li>
+                <li>Vehicle storage humidity out of range (VehicleID: 789)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- JavaScript for Section Display -->
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.dashboard-section').forEach(div => div.style.display = 'none');
+            const targetSection = document.getElementById(id);
+            targetSection.style.display = 'block';
+        }
+
+        function toggleSubMenu(id) {
+            const submenu = document.getElementById(id);
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function loadExternalPage(sectionId, url) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error("Error loading page.");
+                        }
+                    })
+                    .then(html => {
+                        section.innerHTML = html;
+                    })
+                    .catch(error => {
+                        section.innerHTML = `<p>${error.message}</p>`;
+                    });
+            }
+        }
+        function logout() {
+            // Clear session data (if any)
+            sessionStorage.clear(); // Or localStorage.clear(), depending on what you're using
+
+            // Optionally, you can also redirect the user to the login page
+            window.location.href = "login.html"; // Replace with your login page URL
+
+            // Or simply reload the page if you want to "reset" the dashboard
+            // window.location.reload();
+    }
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Function to display warehouse details based on the warehouse ID
+        function loadWarehouseDetails() {
+            const warehouseId = getQueryParam('warehouse'); // Get the 'warehouse' query param from the URL
+            
+            if (warehouseId) {
+                // For simplicity, hardcoding warehouse details in an object
+                const warehouseDetails = {
+                    'WH-DHK-001': {
+                        location: 'Tejgaon, Dhaka, Bangladesh',
+                        capacity: '3000 metric tons',
+                        currentCapacity: '2000 metric tons',
+                        inspectionDate: '2024-11-10',
+                        followUpDate: '2024-12-10',
+                        alerts: 'Power backup maintenance due',
+                    },
+                    'WH-DHK-002': {
+                        location: 'Chittagong, Bangladesh',
+                        capacity: '2500 metric tons',
+                        currentCapacity: '1800 metric tons',
+                        inspectionDate: '2024-11-12',
+                        followUpDate: '2024-12-15',
+                        alerts: 'Routine maintenance due',
+                    }
+                    // Add more warehouse data as needed
+                };
+
+                const details = warehouseDetails[warehouseId];
+
+                if (details) {
+                    document.getElementById('warehouse-details').innerHTML = `
+                        <h3>Warehouse Details - ${warehouseId}</h3>
+                        <table>
+                            <tr><th>Attribute</th><th>Details</th></tr>
+                            <tr><td>Warehouse ID</td><td>${warehouseId}</td></tr>
+                            <tr><td>Location</td><td>${details.location}</td></tr>
+                            <tr><td>Total Capacity</td><td>${details.capacity}</td></tr>
+                            <tr><td>Current Capacity</td><td>${details.currentCapacity}</td></tr>
+                            <tr><td>Inspection Date</td><td contenteditable="true">${details.inspectionDate}</td></tr>
+                            <tr><td>Follow-up Date</td><td contenteditable="true">${details.followUpDate}</td></tr>
+                            <tr><td>Alerts/Warnings</td><td>${details.alerts}</td></tr>
+                        </table>
+                    `;
+                } else {
+                    document.getElementById('warehouse-details').innerHTML = '<p>Warehouse details not found.</p>';
+                }
+            }
+        }
+
+        // Call the function to load details when the page is loaded
+        window.onload = loadWarehouseDetails;
+                // Function to toggle the visibility of the notifications
+        function toggleNotifications() {
+            const notifications = document.getElementById('notifications');
+            notifications.style.display = (notifications.style.display === 'none' || notifications.style.display === '') ? 'block' : 'none';
+        }
+
+        // Optionally, you can close the notifications if the user clicks outside of it
+        document.addEventListener('click', function(event) {
+            const notificationIcon = document.getElementById('notification-icon');
+            const notifications = document.getElementById('notifications');
+            if (!notificationIcon.contains(event.target) && !notifications.contains(event.target)) {
+                notifications.style.display = 'none';
+            }
+        });
+
+
+    </script>
+
+    <!-- JavaScript for Notifications -->
+    
+</body>
+
+</html>
