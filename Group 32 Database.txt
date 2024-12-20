@@ -1,0 +1,198 @@
+-- Table: CUSTOMER
+CREATE TABLE CUSTOMER (
+    customerId INT(7) PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    contactNumber CHAR(11) NOT NULL,
+    emailAddress VARCHAR(50) NOT NULL,
+    district VARCHAR(10) NOT NULL,
+    customerType ENUM('WH', 'GC', 'R') NOT NULL
+);
+
+
+CREATE TABLE RETAILER (
+    retailerId INT(7) PRIMARY KEY,
+    retailerDiscount DECIMAL(6, 2),
+    retailerPrice DECIMAL(6, 2),
+    FOREIGN KEY (retailerId) REFERENCES CUSTOMER(customerId)
+);
+
+
+CREATE TABLE WHOLESALER (
+    wholesalerId INT(7) PRIMARY KEY,
+    wholesalerDiscount DECIMAL(8, 2),
+    wholesalerPrice DECIMAL(6, 2),
+    FOREIGN KEY (wholesalerId) REFERENCES CUSTOMER(customerId)
+);
+
+
+CREATE TABLE GENERALCUSTOMER (
+    generalCustomerId INT(7) PRIMARY KEY,
+    generalCustomerDiscount DECIMAL(6, 2),
+    generalCustomerPrice DECIMAL(6, 2),
+    FOREIGN KEY (generalCustomerId) REFERENCES CUSTOMER(customerId)
+);
+
+
+
+CREATE TABLE PERISHABLE_GOOD (
+    productId INT(7) PRIMARY KEY,
+    productName VARCHAR(15) NOT NULL,
+    productType ENUM('V', 'D', 'M') NOT NULL,
+    pricePerUnit DECIMAL(6, 2) NOT NULL
+);
+
+
+
+CREATE TABLE VEGETATION (
+    productId INT(7) PRIMARY KEY,
+    FOREIGN KEY (productId) REFERENCES PERISHABLE_GOOD(productId)
+);
+
+
+CREATE TABLE DAIRY (
+    productId INT(7) PRIMARY KEY,
+    FOREIGN KEY (productId) REFERENCES PERISHABLE_GOOD(productId)
+);
+
+
+
+CREATE TABLE MEAT (
+    productId INT(7) PRIMARY KEY,
+    FOREIGN KEY (productId) REFERENCES PERISHABLE_GOOD(productId)
+);
+
+
+
+CREATE TABLE PURCHASE_ORDER (
+    purchaseOrderId INT(7) PRIMARY KEY,
+    orderDate DATE NOT NULL,
+    totalCost DECIMAL(12, 2),
+    deliveryAddress VARCHAR(100),
+    emergencyCharge DECIMAL(5, 2)
+);
+
+
+
+CREATE TABLE PURCHASE_ORDER_GOOD (
+    purchaseOrderId INT(7),
+    productId INT(7),
+    quantity INT(5) NOT NULL,
+    pricePerUnit DECIMAL(5, 2),
+    PRIMARY KEY (purchaseOrderId, productId),
+    FOREIGN KEY (purchaseOrderId) REFERENCES PURCHASE_ORDER(purchaseOrderId),
+    FOREIGN KEY (productId) REFERENCES PERISHABLE_GOOD(productId)
+);
+
+
+
+CREATE TABLE WAREHOUSE (
+    warehouseId INT(7) PRIMARY KEY,
+    warehouseName VARCHAR(50),
+    warehouseAddress VARCHAR(100),
+    totalCapacity DECIMAL(8, 2),
+    hotlineNumber CHAR(11),
+    staffInformation VARCHAR(100)
+);
+
+
+CREATE TABLE STORAGE_UNIT (
+    storageUnitId INT(7) PRIMARY KEY,
+    warehouseId INT(7),
+    capacity DECIMAL(6, 2),
+    typeOfStorage ENUM('F', 'D'),
+    totalWastage DECIMAL(4, 2),
+    storedProductType ENUM('V', 'D', 'M'),
+    FOREIGN KEY (warehouseId) REFERENCES WAREHOUSE(warehouseId)
+);
+
+
+CREATE TABLE FREEZER (
+    storageUnitId INT(7) PRIMARY KEY,
+    fRowNo INT(3),
+    fWastage DECIMAL(3, 2),
+    FOREIGN KEY (storageUnitId) REFERENCES STORAGE_UNIT(storageUnitId)
+);
+
+
+CREATE TABLE DRY (
+    storageUnitId INT(7) PRIMARY KEY,
+    dRowNo INT(3),
+    dWastage DECIMAL(3, 2),
+    FOREIGN KEY (storageUnitId) REFERENCES STORAGE_UNIT(storageUnitId)
+);
+
+
+CREATE TABLE STORAGE_CONDITION (
+    timestamp DATETIME,
+    storageUnitId INT(7),
+    currentTemp DECIMAL(5, 2),
+    currentHumidity DECIMAL(5, 2),
+    PRIMARY KEY (timestamp, storageUnitId),
+    FOREIGN KEY (storageUnitId) REFERENCES STORAGE_UNIT(storageUnitId)
+);
+
+
+
+CREATE TABLE FARMER (
+    farmerId INT(7) PRIMARY KEY,
+    produceSamples VARCHAR(15),
+    farmName VARCHAR(30),
+    farmAddress VARCHAR(100)
+);
+
+
+
+CREATE TABLE EMPLOYEE (
+    employeeId INT(7) PRIMARY KEY,
+    name VARCHAR(40),
+    contactInfo VARCHAR(111),
+    joiningDate DATE,
+    departureDate DATE,
+    employeeType ENUM('DE', 'ST', 'FSO'),
+    salary DECIMAL(8, 2),
+    position VARCHAR(15)
+);
+
+
+CREATE TABLE STORAGE_UNIT_STAFF (
+    staffId INT(7) PRIMARY KEY,
+    storageUnitId INT(7),
+    storageType ENUM('F', 'D'),
+    FOREIGN KEY (staffId) REFERENCES EMPLOYEE(employeeId),
+    FOREIGN KEY (storageUnitId) REFERENCES STORAGE_UNIT(storageUnitId)
+);
+
+
+
+CREATE TABLE FOOD_SAFETY_OFFICER (
+    officerId INT(7) PRIMARY KEY,
+    inspectionReport VARCHAR(255),
+    FOREIGN KEY (officerId) REFERENCES EMPLOYEE(employeeId)
+);
+
+
+
+CREATE TABLE DELIVERY_PERSONNEL (
+    personnelId INT(7) PRIMARY KEY,
+    deliveryTime DATETIME,
+    FOREIGN KEY (personnelId) REFERENCES EMPLOYEE(employeeId)
+);
+
+
+CREATE TABLE TRANSPORTATION (
+    vehicleId INT(7) PRIMARY KEY,
+    pickupLocation VARCHAR(50),
+    deliveryLocation VARCHAR(50),
+    departureTime DATETIME,
+    transportationStatus VARCHAR(10)
+);
+
+
+CREATE TABLE HARVEST (
+    harvestId INT(7) PRIMARY KEY,
+    date DATE,
+    quantity DECIMAL(5, 2),
+    shelfLife INT(3),
+    batchNo VARCHAR(6),
+    dateOfBatchLoading DATE
+);
