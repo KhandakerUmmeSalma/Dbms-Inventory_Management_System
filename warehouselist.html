@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .dashboard {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            background-color: #15e631;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #39f321;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>List of Warehouses</h1>
+    
+    <div class="search-bar">
+        <input type="text" id="searchCity" placeholder="Search by City">
+        <input type="text" id="searchWarehouse" placeholder="Search by Warehouse Name">
+        <button onclick="filterTable()">Search</button>
+    </div>
+
+    <table id="warehouseTable">
+        <thead>
+            <tr>
+                <th>Warehouse ID</th>
+                <th>Warehouse Name</th>
+                <th>City</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Existing warehouses -->
+            <tr>
+                <td>WH000001</td>
+                <td>Central Warehouse</td>
+                <td>Dhaka</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>WH000002</td>
+                <td>Fatin's Warehouse</td>
+                <td>Dhaka</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>WH000003</td>
+                <td>West Side Storage</td>
+                <td>Chattogram</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>WH000004</td>
+                <td>North Supply Depot</td>
+                <td>Rangpur</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="addWarehouse()">Add Warehouse</button>
+</div>
+
+<script>
+    let warehouseCounter = 4; // Initialize with the number of existing warehouses
+
+    function generateWarehouseID() {
+        // Increment counter and generate an 8-character Warehouse ID
+        warehouseCounter++;
+        return `WH${warehouseCounter.toString().padStart(6, '0')}`;
+    }
+
+    function addWarehouse() {
+        const warehouseName = prompt("Enter Warehouse Name:");
+        const city = prompt("Enter City:");
+
+        if (warehouseName && city) {
+            const table = document.getElementById('warehouseTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            const idCell = newRow.insertCell(0);
+            const nameCell = newRow.insertCell(1);
+            const cityCell = newRow.insertCell(2);
+            const actionCell = newRow.insertCell(3);
+
+            idCell.textContent = generateWarehouseID();
+            nameCell.textContent = warehouseName;
+            cityCell.textContent = city;
+
+            // Add delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'delete-btn';
+            deleteButton.onclick = () => deleteRow(deleteButton);
+            actionCell.appendChild(deleteButton);
+
+            alert("Warehouse added successfully!");
+        } else {
+            alert("Both Warehouse Name and City are required.");
+        }
+    }
+
+    function deleteRow(button) {
+        const row = button.parentElement.parentElement; // Get the row containing the button
+        const table = document.getElementById('warehouseTable').getElementsByTagName('tbody')[0];
+        table.removeChild(row); // Remove the row from the table
+        alert("Warehouse deleted successfully!");
+    }
+
+    function filterTable() {
+        const cityFilter = document.getElementById('searchCity').value.toLowerCase();
+        const warehouseFilter = document.getElementById('searchWarehouse').value.toLowerCase();
+        const table = document.getElementById('warehouseTable');
+        const rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            const city = rows[i].cells[2]?.textContent.toLowerCase();
+            const warehouseName = rows[i].cells[1]?.textContent.toLowerCase();
+
+            if (city && warehouseName && city.includes(cityFilter) && warehouseName.includes(warehouseFilter)) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
