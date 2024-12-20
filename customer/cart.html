@@ -50,6 +50,15 @@
       </select>
     </div>
 
+    <!-- Delivery Option Selection -->
+    <div class="mt-4">
+      <h4>Select Delivery Days</h4>
+      <select class="form-select" id="deliveryDays">
+        <option value="3-5" selected>3-5 Days (No Extra Charge)</option>
+        <option value="1-2">1-2 Days (Extra 100 Taka)</option>
+      </select>
+    </div>
+
     <!-- Address Input -->
     <div class="mt-4">
       <h4>Enter Address</h4>
@@ -65,11 +74,13 @@
   <script>
     // Constants for discount thresholds based on total amount
     const discountRanges = [
-      { min: 10000, max: 20000, discount: 0.04 }, // 4% for total > 10,000 and <= 20,000
-      { min: 20001, discount: 0.18 },            // 18% for total > 20,000
+      { min: 8000, discount: 0.02 }, // 2% for total > 8,000
+      { min: 16000, discount: 0.05 }, // 5% for total > 16,000
+      { min: 30000, discount: 0.08 }, // 8% for total > 30,000
+      { min: 40000, discount: 0.10 }, // 10% for total > 40,000
     ];
 
-    const maxDiscount = 0.15; // Maximum discount cap
+    const maxDiscount = 0.10; // Maximum discount cap (10%)
 
     // Retrieve cart data or initialize an empty cart
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -78,11 +89,17 @@
     function calculateDiscount(totalPrice) {
       let discount = 0;
       for (let range of discountRanges) {
-        if (totalPrice >= range.min && (!range.max || totalPrice <= range.max)) {
+        if (totalPrice > range.min) {
           discount = range.discount;
         }
       }
       return Math.min(discount, maxDiscount); // Ensure discount does not exceed maxDiscount
+    }
+
+    // Function to calculate the extra charge based on delivery days
+    function calculateDeliveryCharge() {
+      const deliveryDays = document.getElementById('deliveryDays').value;
+      return deliveryDays === '1-2' ? 100 : 0; // Extra 100 Taka for 1-2 days delivery
     }
 
     // Update the cart and discount display
@@ -108,7 +125,7 @@
       cart.forEach((item, index) => {
         const itemRow = document.createElement('div');
         itemRow.classList.add('cart-item', 'd-flex', 'justify-content-between', 'align-items-center');
-        itemRow.innerHTML = `
+        itemRow.innerHTML = ` 
           <div>
             <strong>${item.product}</strong> - Taka ${item.price} x 
             <input type="number" value="${item.quantity}" min="1" class="form-control d-inline-block" style="width: 60px;">
@@ -139,7 +156,10 @@
       discountPercent.innerText = `${(discount * 100).toFixed(0)}%`;
       discountAmount.innerText = discountAmountValue.toFixed(2);
 
-      const finalTotal = totalPrice - discountAmountValue;
+      // Calculate delivery charge
+      const deliveryCharge = calculateDeliveryCharge();
+
+      const finalTotal = totalPrice - discountAmountValue + deliveryCharge;
       cartTotal.innerText = finalTotal.toFixed(2);
       document.getElementById('checkoutButton').disabled = false;
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -153,6 +173,9 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
     }
+
+    // Update the cart display when the delivery option changes
+    document.getElementById('deliveryDays').addEventListener('change', updateCartDisplay);
 
     document.getElementById('checkoutButton').addEventListener('click', () => {
       const paymentMethod = document.getElementById('paymentmethod').value;
@@ -179,3 +202,4 @@
   </script>
 </body>
 </html>
+
