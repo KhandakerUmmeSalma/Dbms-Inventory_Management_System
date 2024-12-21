@@ -3,7 +3,8 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f1f8f3;  /* Very light muted green background */
+    background-color: #f1f8f3;
+    /* Very light muted green background */
 }
 
 /* Container for center alignment */
@@ -20,7 +21,8 @@ body {
 
 /* Custom Section Background */
 .custom-section-bg {
-    background-color: #f1f8f3; /* Muted green background */
+    background-color: #f1f8f3;
+    /* Muted green background */
     padding: 40px 0;
 }
 
@@ -28,12 +30,15 @@ body {
 .form-container {
     background-color: #ffffff;
     padding: 40px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    border-radius: 1.2rem;  /* Rounded corners for the card */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+    border-radius: 1.2rem;
+    /* Rounded corners for the card */
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;  /* Increased gap for airy design */
+    gap: 20px;
+    /* Increased gap for airy design */
 }
 
 /* Heading Styles */
@@ -47,10 +52,12 @@ h2 {
 /* Input Fields */
 .input-field {
     width: 100%;
-    padding: 14px;  /* Increased padding for better user experience */
+    padding: 14px;
+    /* Increased padding for better user experience */
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 10px;  /* Softer rounded corners */
+    border-radius: 10px;
+    /* Softer rounded corners */
     font-size: 16px;
     box-sizing: border-box;
     transition: all 0.3s ease;
@@ -59,13 +66,16 @@ h2 {
 /* Focus States */
 .input-field:focus {
     outline: none;
-    border-color: #4caf50;  /* Green focus border */
-    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);  /* Green shadow on focus */
+    border-color: #4caf50;
+    /* Green focus border */
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+    /* Green shadow on focus */
 }
 
 /* Submit Button */
 .submit-btn {
-    background-color: #4caf50; /* Green button */
+    background-color: #4caf50;
+    /* Green button */
     color: white;
     border: none;
     padding: 15px;
@@ -98,7 +108,8 @@ h2 {
 
 /* Hover effect for Back Button */
 .back-btn:hover {
-    background-color: #e7f4e3;  /* Light green background on hover */
+    background-color: #e7f4e3;
+    /* Light green background on hover */
 }
 
 /* Address Dropdown Styling */
@@ -109,7 +120,8 @@ select.input-field {
     background-color: #fff;
     padding: 14px;
     font-size: 16px;
-    border-radius: 10px;  /* Rounded corners */
+    border-radius: 10px;
+    /* Rounded corners */
     border: 1px solid #ccc;
     width: 100%;
 }
@@ -132,6 +144,23 @@ select.input-field {
     font-weight: 400;
     color: #777;
 }
+
+/* loginSignup.css */
+
+/* Custom styles for the form container */
+.container.custom-section-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Optional: Add a background image or color */
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        padding: 1rem;
+    }
+}
+
 
 /* Responsive Design */
 @media (max-width: 480px) {

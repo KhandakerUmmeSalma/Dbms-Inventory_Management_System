@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            margin: 10px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .box h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .box table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .box table th, .box table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .box table th {
+            background-color: #f9f9f9;
+        }
+
+        .box input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .box input[type="date"] {
+            width: calc(100% - 16px);
+            padding: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .adjust-buttons {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .adjust-buttons button {
+            padding: 6px 10px;
+            margin: 0 2px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .adjust-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .save-button, .back-button {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background-color: #28a745;
+        }
+
+        .save-button:hover {
+            background-color: #218838;
+        }
+
+        .back-button {
+            background-color: #007bff;
+            margin-left: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        .status-select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            
+            <label for="todays-entry">No. of Today's Batch Entry:
+                <button onclick="adjustValue('todays-entry', 1')">+</button>
+                <button onclick="adjustValue('todays-entry', -1')">-</button>
+            </label>
+            <input type="text" id="todays-entry" placeholder="Enter value">
+            <div class="adjust-buttons">
+                
+            </div>
+
+            <label for="todays-deliveries">No._of_Today's Deliveries:
+                <button onclick="adjustValue('todays-deliveries', 1')">+</button>
+                <button onclick="adjustValue('todays-deliveries', -1')">-</button>
+            </label>
+            <input type="text" id="todays-deliveries" placeholder="Enter value">
+            <div class="adjust-buttons">
+                
+            </div>
+
+            <label for="total-batches">Total_Batches (Monthly):</label>
+            <input type="text" id="total-batches" placeholder="0" readonly>
+
+            <label for="total-deliveries">
+                     Total_Deliveries (Monthly):</label>
+            <input type="text" id="total-deliveries" placeholder="0" readonly>
+        </div>
+
+        <div class="box">
+
+            <label for="orders-confirmed">No. of Orders Confirmed:</label>
+            <input type="text" id="orders-confirmed" placeholder="Enter value">
+
+            <label for="orders-pending">Orders_Pending:</label>
+            <input type="text" id="orders-pending" placeholder="Enter value">
+
+            <label for="inspection-date">Follow_Up_Inspection Date:</label>
+            <input type="date" id="inspection-date">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>Monthly Storage Unit Maintenance Status</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Storage Unit</th>
+                    <th>Problem</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Freezer01</td>
+                    <td>Issue</td>
+                    <td>
+                        <select class="status-select" id="status-Freezer01">
+                            <option value="Pending">Pending</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dry01</td>
+                    <td>Issue</td>
+                    <td>
+                        <select class="status-select" id="status-Dry01">
+                            <option value="Pending">Pending</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Freezer02</td>
+                    <td>Issue</td>
+                    <td>
+                        <select class="status-select" id="status-Freezer02">
+                            <option value="Pending">Pending</option>
+                            <option value="Resolved" selected>Resolved</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="save-button" onclick="saveData()">Save</button>
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <script>
+        let totalBatchesMonthly = 0;
+        let totalDeliveriesMonthly = 0;
+
+        function adjustValue(fieldId, delta) {
+            const field = document.getElementById(fieldId);
+            const value = parseInt(field.value) || 0;
+            field.value = value + delta;
+        }
+
+        function saveData() {
+            const todaysEntry = parseInt(document.getElementById('todays-entry').value) || 0;
+            const todaysDeliveries = parseInt(document.getElementById('todays-deliveries').value) || 0;
+
+            totalBatchesMonthly += todaysEntry;
+            totalDeliveriesMonthly += todaysDeliveries;
+
+            document.getElementById('total-batches').value = totalBatchesMonthly;
+            document.getElementById('total-deliveries').value = totalDeliveriesMonthly;
+
+            document.getElementById('todays-entry').value = '';
+            document.getElementById('todays-deliveries').value = '';
+
+            const statuses = document.querySelectorAll('.status-select');
+            statuses.forEach(select => {
+                const unitId = select.id.replace('status-', '');
+                console.log(`Status for ${unitId}: ${select.value}`);
+            });
+
+            alert('Data has been saved successfully!');
+        }
+
+        function goBack() {
+            window.location.href = 'manager.html';
+        }
+    </script>
+</body>
+</html>
+
+
